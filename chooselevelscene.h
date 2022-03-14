@@ -12,7 +12,7 @@ public:
     void paintEvent(QPaintEvent *);
 
 signals:
-
+    void chooseSceneBack();
 };
 
 #endif // CHOOSELEVELSCENE_H

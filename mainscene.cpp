@@ -25,6 +25,11 @@ MainScene::MainScene(QWidget *parent)
 
     chooseScene = new ChooseLevelScene;
 
+    connect(chooseScene, &ChooseLevelScene::chooseSceneBack, this, [=](){
+        chooseScene->hide();
+        this->show();
+    });
+
     connect(startBtn, &QPushButton::clicked, [=](){
         startBtn->zoom1();
         startBtn->zoom2();
