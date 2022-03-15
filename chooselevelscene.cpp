@@ -4,6 +4,7 @@
 #include <QPainter>
 #include "mypushbutton.h"
 #include <QTimer>
+#include <QLabel>
 
 ChooseLevelScene::ChooseLevelScene(QWidget *parent)
     : QMainWindow{parent}
@@ -30,6 +31,26 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent)
             emit this->chooseSceneBack();
         });
     });
+
+    for(int i = 0; i < 20; i++)
+    {
+        MyPushButton * menuBtn = new MyPushButton(":/res/LevelIcon.png");
+        menuBtn->setParent(this);
+        menuBtn->move(25 + i % 4 * 70, 130 + i / 4 * 70);
+
+        connect(menuBtn, &MyPushButton::clicked, [=](){
+            QString str = QString("您选择的是第%1关").arg(i + 1);
+            qDebug() << str;
+        });
+
+        QLabel * label = new QLabel;
+        label->setParent(this);
+        label->setFixedSize(menuBtn->width(), menuBtn->height());
+        label->setText(QString::number(i + 1));
+        label->move(25 + i % 4 * 70, 130 + i / 4 * 70);
+        label->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+        label->setAttribute(Qt::WA_TransparentForMouseEvents);
+    }
 }
 
 void ChooseLevelScene::paintEvent(QPaintEvent *)
