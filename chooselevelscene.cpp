@@ -41,6 +41,16 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent)
         connect(menuBtn, &MyPushButton::clicked, [=](){
             QString str = QString("您选择的是第%1关").arg(i + 1);
             qDebug() << str;
+
+            this->hide();
+            play = new PlayScene(i + 1);
+            play->show();
+
+            connect(play, &PlayScene::chooseSceneBack, [=](){
+                this->show();
+                delete play;
+                play = NULL;
+            });
         });
 
         QLabel * label = new QLabel;
