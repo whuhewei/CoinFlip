@@ -39,8 +39,6 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent)
         menuBtn->move(25 + i % 4 * 70, 130 + i / 4 * 70);
 
         connect(menuBtn, &MyPushButton::clicked, [=](){
-            QString str = QString("您选择的是第%1关").arg(i + 1);
-            qDebug() << str;
 
             this->hide();
             play = new PlayScene(i + 1);
