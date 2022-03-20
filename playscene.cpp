@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <mycoin.h>
 #include <dataconfig.h>
+#include <QPropertyAnimation>
 
 PlayScene::PlayScene(int levelNum)
 {
@@ -53,6 +54,14 @@ PlayScene::PlayScene(int levelNum)
             this->gameArray[i][j] = config.mData[this->levelIndex][i][j];
         }
     }
+
+    QLabel * winLabel = new QLabel;
+    QPixmap tmpPix;
+    tmpPix.load(":/res/LevelCompletedDialogBg.png");
+    winLabel->setGeometry(0, 0, tmpPix.width(), tmpPix.height());
+    winLabel->setPixmap(tmpPix);
+    winLabel->setParent(this);
+    winLabel->move((this->width() - tmpPix.width()) * 0.5, -tmpPix.height());
 
     for(int i = 0; i < 4; i++)
     {
@@ -124,7 +133,6 @@ PlayScene::PlayScene(int levelNum)
                     }
                     if(this->isWin == true)
                     {
-                        qDebug() << "游戏胜利";
                         for(int i = 0; i < 4; i++)
                         {
                             for(int j = 0; j < 4; j++)
@@ -132,6 +140,13 @@ PlayScene::PlayScene(int levelNum)
                                 coinBtn[i][j]->isWin = true;
                             }
                         }
+
+                        QPropertyAnimation * animation = new QPropertyAnimation(winLabel, "geometry");
+                        animation->setDuration(1000);
+                        animation->setStartValue(QRect(winLabel->x(), winLabel->y(), winLabel->width(), winLabel->height()));
+                        animation->setEndValue(QRect(winLabel->x(), winLabel->y() + 114, winLabel->width(), winLabel->height()));
+                        animation->setEasingCurve(QEasingCurve::OutBounce);
+                        animation->start();
                     }
                 });
             });
