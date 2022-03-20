@@ -23,6 +23,8 @@ public:
     bool isAnimation = false;
 
     void mousePressEvent(QMouseEvent *e);
+
+    bool isWin;
 signals:
 
 };

@@ -30,7 +30,6 @@ PlayScene::PlayScene(int levelNum)
     backBtn->move(this->width() - backBtn->width(), this->height() - backBtn->height());
 
     connect(backBtn, &MyPushButton::clicked, [=](){
-        qDebug() << "翻金币场景中点击了返回";
         QTimer::singleShot(500, this, [=](){
             emit this->chooseSceneBack();
         });
@@ -109,6 +108,30 @@ PlayScene::PlayScene(int levelNum)
                     {
                         coinBtn[coin->posX][coin->posY - 1]->changeFlag();
                         this->gameArray[coin->posX][coin->posY - 1] = this->gameArray[coin->posX][coin->posY - 1] == 0 ? 1 : 0;
+                    }
+
+                    this->isWin = true;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        for(int j = 0; j < 4; j++)
+                        {
+                            if(coinBtn[i][j]->flag == false)
+                            {
+                                this->isWin = false;
+                                break;
+                            }
+                        }
+                    }
+                    if(this->isWin == true)
+                    {
+                        qDebug() << "游戏胜利";
+                        for(int i = 0; i < 4; i++)
+                        {
+                            for(int j = 0; j < 4; j++)
+                            {
+                                coinBtn[i][j]->isWin = true;
+                            }
+                        }
                     }
                 });
             });

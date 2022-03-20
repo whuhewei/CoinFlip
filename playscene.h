@@ -18,6 +18,8 @@ public:
 
     MyCoin * coinBtn[4][4];
 
+    bool isWin;
+
 signals:
     void chooseSceneBack();
 };
