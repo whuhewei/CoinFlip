@@ -12,12 +12,14 @@ SOURCES += \
     chooselevelscene.cpp \
     main.cpp \
     mainscene.cpp \
+    mycoin.cpp \
     mypushbutton.cpp \
     playscene.cpp
 
 HEADERS += \
     chooselevelscene.h \
     mainscene.h \
+    mycoin.h \
     mypushbutton.h \
     playscene.h
 
