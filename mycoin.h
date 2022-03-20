@@ -24,7 +24,7 @@ public:
 
     void mousePressEvent(QMouseEvent *e);
 
-    bool isWin;
+    bool isWin = false;
 signals:
 
 };

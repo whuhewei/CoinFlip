@@ -4,6 +4,7 @@
 
 #include <QPainter>
 #include <QTimer>
+#include <QSoundEffect>
 
 MainScene::MainScene(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +20,9 @@ MainScene::MainScene(QWidget *parent)
         this->close();
     });
 
+    QSoundEffect * startSound = new QSoundEffect(this);
+    startSound->setSource(QUrl(":/res/TapButtonSound.wav"));
+
     MyPushButton * startBtn = new MyPushButton(":/res/MenuSceneStartButton.png");
     startBtn->setParent(this);
     startBtn->move(this->width() * 0.5 - startBtn->width() * 0.5, this->height() * 0.7);
@@ -31,6 +35,9 @@ MainScene::MainScene(QWidget *parent)
     });
 
     connect(startBtn, &QPushButton::clicked, [=](){
+        startSound->play();
+
+
         startBtn->zoom1();
         startBtn->zoom2();
 

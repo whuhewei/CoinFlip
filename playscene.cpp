@@ -94,6 +94,14 @@ PlayScene::PlayScene(int levelNum)
             coinBtn[i][j] = coin;
 
             connect(coin, &MyCoin::clicked, [=](){
+                for(int i = 0; i < 4; i++)
+                {
+                    for(int j = 0; j < 4; j++)
+                    {
+                        coinBtn[i][j]->isWin = true;
+                    }
+                }
+
                 coin->changeFlag();
                 this->gameArray[i][j] = this->gameArray[i][j] == 0 ? 1 : 0;
 
@@ -117,6 +125,14 @@ PlayScene::PlayScene(int levelNum)
                     {
                         coinBtn[coin->posX][coin->posY - 1]->changeFlag();
                         this->gameArray[coin->posX][coin->posY - 1] = this->gameArray[coin->posX][coin->posY - 1] == 0 ? 1 : 0;
+                    }
+
+                    for(int i = 0; i < 4; i++)
+                    {
+                        for(int j = 0; j < 4; j++)
+                        {
+                            coinBtn[i][j]->isWin = false;
+                        }
                     }
 
                     this->isWin = true;
