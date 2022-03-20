@@ -29,6 +29,7 @@ MyCoin::MyCoin(QString btnImg)
         if(this->min > this->max)
         {
             this->min = 1;
+            isAnimation = false;
             timer1->stop();
         }
     });
@@ -44,9 +45,22 @@ MyCoin::MyCoin(QString btnImg)
         if(this->min > this->max)
         {
             this->max = 8;
+            isAnimation = false;
             timer2->stop();
         }
     });
+}
+
+void MyCoin::mousePressEvent(QMouseEvent *e)
+{
+    if(this->isAnimation)
+    {
+        return;
+    }
+    else
+    {
+        QPushButton::mousePressEvent(e);
+    }
 }
 
 void MyCoin::changeFlag()
@@ -54,11 +68,13 @@ void MyCoin::changeFlag()
     if(this->flag)
     {
         timer1->start(30);
+        isAnimation = true;
         this->flag = false;
     }
     else
     {
         timer2->start(30);
+        isAnimation = true;
         this->flag = true;
     }
 }

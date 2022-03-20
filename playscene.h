@@ -2,6 +2,7 @@
 #define PLAYSCENE_H
 
 #include <QMainWindow>
+#include <mycoin.h>
 
 class PlayScene : public QMainWindow
 {
@@ -14,6 +15,8 @@ public:
     void paintEvent(QPaintEvent *);
 
     int gameArray[4][4];
+
+    MyCoin * coinBtn[4][4];
 
 signals:
     void chooseSceneBack();

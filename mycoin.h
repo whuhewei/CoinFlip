@@ -11,7 +11,7 @@ public:
     MyCoin(QString btnImg);
 
     int posX;
-    int poxY;
+    int posY;
     bool flag;
 
     void changeFlag();
@@ -19,6 +19,10 @@ public:
     QTimer * timer2;
     int min = 1;
     int max = 8;
+
+    bool isAnimation = false;
+
+    void mousePressEvent(QMouseEvent *e);
 signals:
 
 };
