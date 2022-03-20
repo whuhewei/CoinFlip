@@ -8,6 +8,7 @@
 #include <mycoin.h>
 #include <dataconfig.h>
 #include <QPropertyAnimation>
+#include <QSoundEffect>
 
 PlayScene::PlayScene(int levelNum)
 {
@@ -26,11 +27,20 @@ PlayScene::PlayScene(int levelNum)
         this->close();
     });
 
+    QSoundEffect * backSound = new QSoundEffect(this);
+    backSound->setSource(QUrl::fromLocalFile(":/res/BackButtonSound.wav"));
+    QSoundEffect * flipSound = new QSoundEffect(this);
+    flipSound->setSource(QUrl::fromLocalFile(":/res/ConFlipSound.wav"));
+    QSoundEffect * winSound = new QSoundEffect(this);
+    winSound->setSource(QUrl::fromLocalFile(":/res/LevelWinSound.wav"));
+
     MyPushButton * backBtn = new MyPushButton(":/res/BackButton.png", ":/res/BackButtonSelected.png");
     backBtn->setParent(this);
     backBtn->move(this->width() - backBtn->width(), this->height() - backBtn->height());
 
     connect(backBtn, &MyPushButton::clicked, [=](){
+        backSound->play();
+
         QTimer::singleShot(500, this, [=](){
             emit this->chooseSceneBack();
         });
@@ -94,6 +104,8 @@ PlayScene::PlayScene(int levelNum)
             coinBtn[i][j] = coin;
 
             connect(coin, &MyCoin::clicked, [=](){
+                flipSound->play();
+
                 for(int i = 0; i < 4; i++)
                 {
                     for(int j = 0; j < 4; j++)
@@ -149,6 +161,8 @@ PlayScene::PlayScene(int levelNum)
                     }
                     if(this->isWin == true)
                     {
+                        winSound->play();
+
                         for(int i = 0; i < 4; i++)
                         {
                             for(int j = 0; j < 4; j++)

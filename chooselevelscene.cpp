@@ -5,6 +5,7 @@
 #include "mypushbutton.h"
 #include <QTimer>
 #include <QLabel>
+#include <QSoundEffect>
 
 ChooseLevelScene::ChooseLevelScene(QWidget *parent)
     : QMainWindow{parent}
@@ -22,11 +23,18 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent)
         this->close();
     });
 
+    QSoundEffect * chooseSound = new QSoundEffect(this);
+    chooseSound->setSource(QUrl::fromLocalFile(":/res/TapButtonSound.wav"));
+    QSoundEffect * backSound = new QSoundEffect(this);
+    backSound->setSource(QUrl::fromLocalFile(":/res/BackButtonSound.wav"));
+
     MyPushButton * backBtn = new MyPushButton(":/res/BackButton.png", ":/res/BackButtonSelected.png");
     backBtn->setParent(this);
     backBtn->move(this->width() - backBtn->width(), this->height() - backBtn->height());
 
     connect(backBtn, &MyPushButton::clicked, [=](){
+        backSound->play();
+
         QTimer::singleShot(500, this, [=](){
             emit this->chooseSceneBack();
         });
@@ -39,6 +47,7 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent)
         menuBtn->move(25 + i % 4 * 70, 130 + i / 4 * 70);
 
         connect(menuBtn, &MyPushButton::clicked, [=](){
+            chooseSound->play();
 
             this->hide();
             play = new PlayScene(i + 1);

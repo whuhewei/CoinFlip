@@ -21,7 +21,7 @@ MainScene::MainScene(QWidget *parent)
     });
 
     QSoundEffect * startSound = new QSoundEffect(this);
-    startSound->setSource(QUrl(":/res/TapButtonSound.wav"));
+    startSound->setSource(QUrl::fromLocalFile(":/res/TapButtonSound.wav"));
 
     MyPushButton * startBtn = new MyPushButton(":/res/MenuSceneStartButton.png");
     startBtn->setParent(this);
