@@ -13,6 +13,8 @@ public:
 
     void paintEvent(QPaintEvent *);
 
+    int gameArray[4][4];
+
 signals:
     void chooseSceneBack();
 };

@@ -6,11 +6,10 @@
 #include <QTimer>
 #include <QLabel>
 #include <mycoin.h>
+#include <dataconfig.h>
 
 PlayScene::PlayScene(int levelNum)
 {
-    QString str = QString("进入了第%1关").arg(levelNum);
-    qDebug() << str;
     this->levelIndex = levelNum;
 
     this->setFixedSize(320, 588);
@@ -47,6 +46,15 @@ PlayScene::PlayScene(int levelNum)
     label->setText(str1);
     label->setGeometry(30, this->height() - 50, 120, 50);
 
+    dataConfig config;
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            this->gameArray[i][j] = config.mData[this->levelIndex][i][j];
+        }
+    }
+
     for(int i = 0; i < 4; i++)
     {
         for(int j = 0; j < 4; j++)
@@ -57,7 +65,17 @@ PlayScene::PlayScene(int levelNum)
             label->setParent(this);
             label->move(57 + i * 50, 200 + j * 50);
 
-            MyCoin * coin = new MyCoin(":/res/Coin0001.png");
+            QString str;
+            if(this->gameArray[i][j] == 1)
+            {
+                str = ":/res/Coin0001.png";
+            }
+            else
+            {
+                str = ":/res/Coin0008.png";
+            }
+
+            MyCoin * coin = new MyCoin(str);
             coin->setParent(this);
             coin->move(59 + i * 50, 204 + j * 50);
         }

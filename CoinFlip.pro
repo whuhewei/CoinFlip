@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     chooselevelscene.cpp \
+    dataconfig.cpp \
     main.cpp \
     mainscene.cpp \
     mycoin.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     chooselevelscene.h \
+    dataconfig.h \
     mainscene.h \
     mycoin.h \
     mypushbutton.h \
