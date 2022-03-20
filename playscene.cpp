@@ -78,6 +78,14 @@ PlayScene::PlayScene(int levelNum)
             MyCoin * coin = new MyCoin(str);
             coin->setParent(this);
             coin->move(59 + i * 50, 204 + j * 50);
+
+            coin->posX = i;
+            coin->poxY = j;
+            coin->flag = this->gameArray[i][j];
+
+            connect(coin, &MyCoin::clicked, [=](){
+                coin->changeFlag();
+            });
         }
     }
 }
