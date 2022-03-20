@@ -30,6 +30,8 @@ MainScene::MainScene(QWidget *parent)
     chooseScene = new ChooseLevelScene;
 
     connect(chooseScene, &ChooseLevelScene::chooseSceneBack, this, [=](){
+        this->setGeometry(chooseScene->geometry());
+
         chooseScene->hide();
         this->show();
     });
@@ -42,6 +44,8 @@ MainScene::MainScene(QWidget *parent)
         startBtn->zoom2();
 
         QTimer::singleShot(500, this, [=](){
+            chooseScene->setGeometry(this->geometry());
+
             this->hide();
             chooseScene->show();
         });

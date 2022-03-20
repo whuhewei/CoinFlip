@@ -42,9 +42,13 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent)
 
             this->hide();
             play = new PlayScene(i + 1);
+
+            play->setGeometry(this->geometry());
+
             play->show();
 
             connect(play, &PlayScene::chooseSceneBack, [=](){
+                this->setGeometry(play->geometry());
                 this->show();
                 delete play;
                 play = NULL;
